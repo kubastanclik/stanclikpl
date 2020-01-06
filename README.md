@@ -4,4 +4,7 @@
 
 ![alt text](https://stanclik.pl/img/git.png "PHP Screen Capture")
 
-| col 3 is      | right-aligned | $1600 |
+![alt text](https://stanclik.pl/img/html5.png "PHP Screen Capture")
+![alt text](https://stanclik.pl/img/js5.png "PHP Screen Capture")
+![alt text](https://stanclik.pl/img/vue.png "PHP Screen Capture")
+![alt text](https://stanclik.pl/img/php.png "PHP Screen Capture")
