@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="./img/js5.png" />
+    <title>Stanclik.pl</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="wrapper" id="app">
+        <div class="row">
+            <div id="loader" class="main__loader" v-show="loader">
+                <div class="modal__loading">
+                    <img src="./img/loading.png"/>
+                </div>
+            </div>
+            <div class="col one">
+                <div class="claim">
+                    <h1>Jakub Stanclik</h1>
+                </div>
+            </div>
+            <div class="col two">
+                <div class="btn__wrapper btn__wrapper--lead">
+                    <button class="btn">
+                        START
+                    </button>
+                </div>
+
+                <div class="btn__wrapper">
+                    <button class="btn">
+                        O MNIE
+                    </button>
+                </div>
+
+                <div class="btn__wrapper">
+                    <button class="btn">
+                        STACK
+                    </button>
+
+                </div>
+
+                <div class="btn__wrapper">
+                    <button class="btn">
+                        PROJEKTY
+                    </button>
+                </div>
+
+                <div class="btn__wrapper">
+                    <button class="btn">
+                        KONTAKT
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col three">
+                <!-- coś o mnie -->
+            </div>
+            <div class="col four">
+                    <div class="four__about">
+                        <p>J estem osobą pomocną, lubię dzielić się wiedzą i doświadczeniem.</p>
+                        <p>W pracy dużą satysfakcję daje mi kompleksowe wsparcie, zarówno klientów jak i współpracowników.</p> 
+                        <p>Ś wietnie czuje się w obszarach związanych z technicznymi aspektami prowadzenia kampanii marketingowych w sieci oraz szeroko pojęty WebDev.</p>
+                        <p>T worzeniem szablonów mailowych, przygotowywaniem kreacji i banerów (Staycznych/Dynamicznych), czy w sprawach związanych z poprawnym działaniem systemów(Pixele, Skrypty trackingowy, Google tag manager, Oferty produktowe w formatach XML/CSV). </p>
+                        <p>R adzę sobie również z rozwiązaniami stworzonymi typowo pod klienta (dedykowane integrację, landingpages, śledzenie cookie, pop-upy). </p>
+                        <p>S zybko przyswajam wiedzę, jestem sumienny i punktualny.</p>
+                    </div>
+                    <div class="four__social">
+                        <div class="four__social--icon">
+                            <img src="./img/ln_icon.png"/>
+                            <h3>/jakubstanclik</h3>
+                        </div>
+                        <div class="four__social--icon">
+                            <img src="./img/git_icon.png"/>
+                            <h3>/kubastanclik</h3>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="row row__stack">
+            <div class="col--wide five">
+                
+                <div class="five__header">
+
+                </div>
+                <div class="five__h1">
+                    Kliknij tutaj!
+                    <br />
+                    <img src="./img/arrows.png">
+                </div>
+
+                <div class="five__content" >
+
+                    <div @click="show('html')" class="content__element">
+                        <img src="./img/html.png" @mouseover="desc" @mouseout="descClear" data-title = "HTML / CSS"/>
+                        <img class="element__shadow" src="./img/html_yellow.png"/>
+                    </div>
+                    <div @click="show('js')"  class="content__element">
+                        <img src="./img/js.png" @mouseover="desc" @mouseout="descClear" data-title = "Java Script" />
+                        <img class="element__shadow" src="./img/js_yellow.png"/>
+                    </div>
+                    <div @click="show('php')" class="content__element">
+                        <img src="./img/php.png" @mouseover="desc" @mouseout="descClear" data-title = "PHP"/>
+                        <img class="element__shadow" src="./img/php_yellow.png"/>
+                    </div>
+                    <div @click="show('bash')" class="content__element">
+                        <img src="./img/bash.png" @mouseover="desc" @mouseout="descClear" data-title = "DevOps"/>
+                        <img class="element__shadow" src="./img/bash_yellow.png"/>
+                    </div>
+                    <div @click="show('others')" class="content__element">
+                        <img src="./img/others.png" @mouseover="desc" @mouseout="descClear" data-title = "Pozostałe"/>
+                        <img class="element__shadow" src="./img/others_yellow.png"/>
+                    </div>
+
+
+                </div>
+
+                <div class="five__describe">
+                    <h1>{{ describe }}</h1>
+                </div>
+                
+                <div class="five__footer" >
+
+                </div>
+
+                <div class="five__modal" :style="{ transform:modal }">
+                    <div class="modal__content">
+                        <div class="modal__content--close">
+                            <div class="btn__wrapper">
+                                <button class="btn" @click="close">
+                                    ZAMKNIJ
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="modal__loading" v-show="load">
+                            <img src="./img/loading.png">
+                        </div>
+
+                        <div class="modal__body" v-show="!load">
+                            <div class="body__text body__text--left">
+                                <h1>{{ result.title }}</h1>
+                                <hr />
+                                <ul v-for="items in result.abilities">
+                                    <li>{{ items }}</li>
+                                </ul>
+                            </div>
+                            <div class="body__text body__text--right">
+                                <div class="img__container"  v-for="icons in result.icon">
+                                    <img :src="icons"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        </div>
+    <script>
+    
+        var app = new Vue({
+        el: '#app',
+        data: {
+            modal : 'translateX(100%)',
+            txt : '',
+            load : true,
+            result : [],
+            describe : '',
+            loader : true
+        },
+        methods: {
+            show : function(e) {
+                this.modal = "translateX(0%)"
+                axios.get(`https://stanclik.pl/api/?stack=${e}`)
+                    .then( (response) => {
+                        this.result = response.data;
+                        console.log(this.result);
+                        this.modal = 'translateX(0%)';
+                        this.load = false;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            },
+
+            close : function() {
+                this.modal = "translateX(100%)"
+                setTimeout( ()=> {
+                    this.load = true
+                },500)
+            },
+
+            desc : function(e) {
+                this.describe = e.target.dataset.title;
+            },
+
+            descClear : function() {
+                this.describe = '';
+            }
+
+            
+        },
+        created : function() {
+            this.loader = false;
+        }
+    })
+    
+    </script>
+    <script>
+    //var scene = document.getElementById('scene');
+    //var parallaxInstance = new Parallax(scene);
+    </script>
+    <script>
+    
+
+    </script>
+</body>
+</html>
